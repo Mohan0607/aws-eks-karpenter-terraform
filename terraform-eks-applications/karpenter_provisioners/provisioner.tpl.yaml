@@ -1,0 +1,39 @@
+# apiVersion: karpenter.sh/v1alpha5
+# kind: Provisioner
+# metadata:
+#   name: front-dev-karpenter
+# spec:
+#   ttlSecondsAfterEmpty: 30 
+#   ttlSecondsUntilExpired: 604800
+#   limits:
+#     resources:
+#       cpu: 100 
+#   requirements:
+#     - key: karpenter.k8s.aws/instance-family
+#       operator: In
+#       values: ["c5", "m5", "r5"]
+#     - key: karpenter.k8s.aws/instance-size
+#       operator: In
+#       values: ["nano", "micro", "small", "large", "xlarge", "2xlarge"]
+#   providerRef:
+#     name: front-dev-karpenter-node
+
+# apiVersion: karpenter.sh/v1alpha5
+# kind: Provisioner
+# metadata:
+#   name: front-dev-karpenter
+# spec:
+#   ttlSecondsAfterEmpty: 30
+#   ttlSecondsUntilExpired: 604800
+#   limits:
+#     resources:
+#       cpu: 100
+#   requirements:
+#     - key: karpenter.k8s.aws/instance-family
+#       operator: In
+#       values: ${instance_families}
+#     - key: karpenter.k8s.aws/instance-size
+#       operator: In
+#       values: ${instance_sizes}
+#   providerRef:
+#     name: front-dev-karpenter-node

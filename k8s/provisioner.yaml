@@ -1,0 +1,30 @@
+
+apiVersion: karpenter.sh/v1alpha5
+kind: Provisioner
+metadata:
+  name: mydef
+spec:
+  ttlSecondsAfterEmpty: 30 
+  ttlSecondsUntilExpired: 604800
+  limits:
+    resources:
+      cpu: 100 
+  requirements:
+    - key: karpenter.k8s.aws/instance-family
+      operator: In
+      values: [c5, m5, r5]
+    - key: karpenter.k8s.aws/instance-size
+      operator: In
+      values: [nano, micro, small, large]
+  providerRef:
+    name: default
+---
+apiVersion: karpenter.k8s.aws/v1alpha1
+kind: AWSNodeTemplate
+metadata:
+  name: default
+spec:
+  subnetSelector:
+    kubernetes.io/cluster/front-dev-eks-cluster: owned
+  securityGroupSelector:
+    kubernetes.io/cluster/front-dev-eks-cluster: owned
