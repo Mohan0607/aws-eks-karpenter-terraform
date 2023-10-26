@@ -4,9 +4,7 @@ region                 = "us-east-1"
 
 # Karpenter
 karpenter_helm_chart_version = "v0.16.3"
-
-instance_type = ["m6a.large", "m6a.small"]
-
+instance_type = ["t3.large", "t3.medium", "m5.large"]
 
 # ALB Controller
 alb_controller_helm_chart_version = "1.5.3"

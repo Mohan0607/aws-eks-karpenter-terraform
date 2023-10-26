@@ -6,10 +6,8 @@ locals {
 
 }
 
-
 #Karpenter
 resource "helm_release" "karpenter" {
-  #provider         = helm.default
   namespace        = local.karpenter_namespace
   create_namespace = true
   name             = local.helm_karpenter_release_name
@@ -53,6 +51,11 @@ resource "kubectl_manifest" "karpenter_node" {
       - key: karpenter.sh/capacity-type
         operator: In
         values: ["on-demand"]
+      - key: "node.kubernetes.io/instance-type"
+        operator: In
+        values:
+          ${jsonencode(var.instance_type)}
+
     limits:
       resources:
         cpu: 1000
